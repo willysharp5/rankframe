@@ -1,43 +1,13 @@
-import { useCallback, useEffect, useState } from "react"
-import {
-  type AIFeature,
-  type BillingTier,
-  CREDIT_LIMITS,
-  checkAndDeductCredits,
-  getCreditState,
-} from "../ai/credits"
+import type { AIFeature, BillingTier } from "../ai/credits"
+import { useAIContext } from "../contexts/AIContext"
 
-export function useAICredits(tier: BillingTier = "pro") {
-  const [state, setState] = useState({
-    periodKey: "",
-    tier,
-    remaining: CREDIT_LIMITS[tier],
-    used: 0,
-  })
-
-  const refresh = useCallback(async () => {
-    const next = await getCreditState(tier)
-    setState(next)
-    return next
-  }, [tier])
-
-  const spend = useCallback(
-    async (feature: AIFeature) => {
-      const next = await checkAndDeductCredits(feature, tier)
-      setState(next)
-      return next
-    },
-    [tier]
-  )
-
-  useEffect(() => {
-    void refresh()
-  }, [refresh])
+export function useAICredits(_tier: BillingTier = "pro") {
+  const { creditState, creditLimit, refreshCredits, deductCredits } = useAIContext()
 
   return {
-    credits: state,
-    total: CREDIT_LIMITS[state.tier],
-    refresh,
-    spend,
+    credits: creditState,
+    total: creditLimit,
+    refresh: refreshCredits,
+    spend: (feature: AIFeature) => deductCredits(feature),
   }
 }

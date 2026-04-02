@@ -1,8 +1,9 @@
 {
-  "id": "ec142d",
-  "name": "Rankframe Build",
+  "id": "rankframe-seo",
+  "name": "RankFrame — AI SEO Power Tool",
   "modes": [
-    "canvas"
+    "default"
   ],
+  "description": "AI-powered SEO auditing and optimization for Framer. Dual SEO + GEO scoring.",
   "icon": "/icon.svg"
 }

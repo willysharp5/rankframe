@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import type { ContentScoreResult } from "../engine/types"
-import { checkAndDeductCredits } from "../ai/credits"
+import { useAIContext } from "../contexts/AIContext"
 
 const defaultResult: ContentScoreResult = {
   score: 62,
@@ -21,6 +21,7 @@ const defaultResult: ContentScoreResult = {
 }
 
 export function useContentScore() {
+  const { deductCredits } = useAIContext()
   const [keyword, setKeyword] = useState("best project management tools")
   const [selectedItem, setSelectedItem] = useState("blog-pm-tools")
   const [isAnalyzing, setIsAnalyzing] = useState(false)
@@ -30,14 +31,14 @@ export function useContentScore() {
   const analyze = useCallback(async () => {
     setIsAnalyzing(true)
     try {
-      await checkAndDeductCredits("content-score", "pro")
+      await deductCredits("content-score")
       await new Promise((resolve) => window.setTimeout(resolve, 800))
       setResult(defaultResult)
       setEeatScore(54)
     } finally {
       setIsAnalyzing(false)
     }
-  }, [])
+  }, [deductCredits])
 
   return {
     keyword,
