@@ -1,10 +1,144 @@
-/* Your Plugin CSS */
+@import "tailwindcss";
 
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  padding: 0 15px 15px 15px;
-  height: 100%;
-  gap: 15px;
+:root {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #222222;
+  --bg-tertiary: #2a2a2a;
+  --bg-elevated: #333333;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #666666;
+  --border-default: #333333;
+  --border-subtle: #2a2a2a;
+  --score-excellent: #22c55e;
+  --score-good: #84cc16;
+  --score-warning: #eab308;
+  --score-poor: #f97316;
+  --score-critical: #ef4444;
+  --accent-seo: #3b82f6;
+  --accent-geo: #a855f7;
+  --accent-ai: #a855f7;
+  --accent-primary: #3b82f6;
+  --severity-critical: #ef4444;
+  --severity-warning: #eab308;
+  --severity-info: #3b82f6;
+  --severity-pass: #22c55e;
+  color-scheme: dark;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rankframe-shell {
+  height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(circle at top right, rgba(168, 85, 247, 0.08), transparent 30%),
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.08), transparent 25%),
+    var(--bg-primary);
+}
+
+.rankframe-panel {
+  height: 100vh;
+  width: 100%;
+}
+
+.rankframe-scroll {
+  scrollbar-gutter: stable;
+}
+
+.score-ring-track {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.ai-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
+  animation: ai-shimmer 1.35s linear infinite;
+}
+
+.fade-in {
+  animation: fade-in 220ms ease-out;
+}
+
+.slide-in {
+  animation: slide-in 260ms ease-out;
+}
+
+@keyframes ai-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
